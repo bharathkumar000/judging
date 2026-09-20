@@ -3,8 +3,9 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useDataStore } from '@/features/shared/services/storage/dataStore';
-import { Navbar, Footer } from '@/features/shared/components';
+import { useDataStore } from '@/lib/dataStore';
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
 import { 
   ShieldCheck, 
   Award, 
@@ -17,7 +18,9 @@ import {
   KeyRound,
   UserCheck,
   Building,
-  Clock
+  Clock,
+  Zap,
+  Target
 } from 'lucide-react';
 
 export default function LoginPage() {
@@ -42,7 +45,7 @@ export default function LoginPage() {
     loginAs(role, identifier);
     setTimeout(() => {
       router.push(targetUrl);
-    }, 400);
+    }, 300);
   };
 
   const handleSubmit = (e) => {
@@ -66,42 +69,42 @@ export default function LoginPage() {
 
     setTimeout(() => {
       router.push(target);
-    }, 400);
+    }, 300);
   };
 
   const roleConfigs = [
     {
       id: 'admin',
-      title: 'Admin Lead',
-      subtitle: 'Event Organizer & Jury Lead ("Me")',
+      title: 'Admin Command',
+      subtitle: 'Organizer & Lead ("Me")',
       icon: ShieldCheck,
-      badge: 'ROOT CONTROL',
-      color: 'indigo',
+      badge: 'SUPERUSER',
+      color: 'pink',
       target: '/admin/dashboard',
       defaultId: 'admin',
-      desc: 'Master scoring matrix, rubric weightages, judge assignments, lock & CSV export.'
+      desc: 'Master evaluation matrix, rubric weights, lock/release scores, CSV export.'
     },
     {
       id: 'judge',
       title: 'Panel Judge',
       subtitle: 'Technical Jury & Evaluator',
       icon: Award,
-      badge: 'JURY PORTAL',
-      color: 'emerald',
+      badge: 'EVALUATION',
+      color: 'purple',
       target: '/judge/dashboard',
       defaultId: 'JDG-01',
-      desc: 'Assigned pitch queue, 100-pt criterion sliders, instant score calculation & feedback.'
+      desc: 'Assigned team queue, 100-pt criterion sliders, instant score computation & notes.'
     },
     {
       id: 'coordinator',
       title: 'Club Coordinator',
       subtitle: 'Room Lead & Timekeeper',
       icon: ClipboardCheck,
-      badge: 'OPERATIONS',
+      badge: 'OPS CHAMBER',
       color: 'cyan',
       target: '/coordinator/dashboard',
       defaultId: 'CRD-01',
-      desc: 'Room pitch queue, 5m pitch + 3m Q&A interactive timer, team attendance check-in.'
+      desc: 'Room queue, 5m pitch + 3m Q&A interactive timer, attendance verification.'
     },
     {
       id: 'team',
@@ -109,15 +112,15 @@ export default function LoginPage() {
       subtitle: 'Participant Squad Portal',
       icon: Users,
       badge: 'PARTICIPANT',
-      color: 'amber',
+      color: 'gold',
       target: '/team/dashboard',
       defaultId: 'IDEA-01',
-      desc: 'Project blueprint, room & pitch slot schedule, live criterion marks breakdown.'
+      desc: 'Project blueprint, presentation room & slot, live criterion marks scorecard.'
     }
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#080c14] text-slate-100 selection:bg-pink-500 selection:text-white">
       <Navbar />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 flex items-center justify-center">
@@ -126,67 +129,65 @@ export default function LoginPage() {
           {/* Left Hero & System Information (5 cols) */}
           <div className="lg:col-span-5 space-y-6">
             <div>
-              <div className="flex items-center gap-2 mb-3">
-                <span className="px-2.5 py-1 text-xs font-mono font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 rounded-md">
-                  AUTHENTICATION GATEWAY
-                </span>
-                <span className="text-xs text-slate-400">Club Ideathon Suite</span>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/30 text-pink-400 text-xs font-mono font-bold uppercase tracking-wider mb-3">
+                <Zap className="w-3.5 h-3.5" />
+                <span>ACCESS GATEWAY · VVCE 2026</span>
               </div>
 
               <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
                 Digitalized Ideathon Judging Suite
               </h1>
               
-              <p className="text-sm text-slate-400 mt-3 leading-relaxed">
-                Welcome to the official event management and live evaluation portal. Select your authorized role or choose a demo persona below to enter your workspace.
+              <p className="text-sm text-slate-300 mt-3 leading-relaxed">
+                Official digital scoring and operations gateway for VVCE Ideathon. Select your role or use 1-click launch to access your dedicated workspace.
               </p>
             </div>
 
             {/* Quick Live Telemetry Info Card */}
-            <div className="bg-slate-900/80 border border-slate-800 p-5 rounded-2xl space-y-4 shadow-lg">
+            <div className="bg-[#101726]/90 border border-white/10 p-5 rounded-3xl space-y-4 shadow-xl">
               <div className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center justify-between">
                 <span>Event Telemetry</span>
-                <span className="text-emerald-400 flex items-center gap-1">
+                <span className="text-emerald-400 flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  Live Judging Round
+                  Live Round 1 Session
                 </span>
               </div>
 
               <div className="grid grid-cols-2 gap-3 text-xs">
-                <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
-                  <div className="text-[10px] text-slate-500 font-mono uppercase">Problem Tracks</div>
+                <div className="bg-[#080c14]/80 p-3.5 rounded-2xl border border-white/5">
+                  <div className="text-[10px] text-slate-400 font-mono uppercase">Problem Tracks</div>
                   <div className="text-lg font-bold text-white mt-0.5">{missions.length} Tracks</div>
                 </div>
 
-                <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
-                  <div className="text-[10px] text-slate-500 font-mono uppercase">Registered Teams</div>
-                  <div className="text-lg font-bold text-indigo-400 mt-0.5">{teams.length} Teams</div>
+                <div className="bg-[#080c14]/80 p-3.5 rounded-2xl border border-white/5">
+                  <div className="text-[10px] text-slate-400 font-mono uppercase">Registered Teams</div>
+                  <div className="text-lg font-bold text-pink-400 mt-0.5">{teams.length} Teams</div>
                 </div>
 
-                <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
-                  <div className="text-[10px] text-slate-500 font-mono uppercase">Panel Judges</div>
-                  <div className="text-lg font-bold text-emerald-400 mt-0.5">{judges.length} Active</div>
+                <div className="bg-[#080c14]/80 p-3.5 rounded-2xl border border-white/5">
+                  <div className="text-[10px] text-slate-400 font-mono uppercase">Panel Judges</div>
+                  <div className="text-lg font-bold text-cyan-400 mt-0.5">{judges.length} Active</div>
                 </div>
 
-                <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
-                  <div className="text-[10px] text-slate-500 font-mono uppercase">Rubric Scale</div>
-                  <div className="text-lg font-bold text-amber-400 mt-0.5">100 Max Pts</div>
+                <div className="bg-[#080c14]/80 p-3.5 rounded-2xl border border-white/5">
+                  <div className="text-[10px] text-slate-400 font-mono uppercase">Rubric Scale</div>
+                  <div className="text-lg font-bold text-purple-400 mt-0.5">100 Max Pts</div>
                 </div>
               </div>
             </div>
 
-            {/* Public Links */}
-            <div className="flex items-center gap-3 text-xs">
-<Link
-  href="/leaderboard"
-  className="text-slate-400 hover:text-white underline underline-offset-4 transition-colors"
->
-  Browse All Teams →
-</Link>
+            {/* Quick Links */}
+            <div className="flex items-center gap-4 text-xs font-mono">
+              <Link
+                href="/teams"
+                className="text-pink-400 hover:text-pink-300 underline underline-offset-4 transition-colors"
+              >
+                Browse Teams Directory →
+              </Link>
               <span className="text-slate-600">&bull;</span>
               <Link
                 href="/leaderboard"
-                className="text-slate-400 hover:text-white underline underline-offset-4 transition-colors"
+                className="text-cyan-400 hover:text-cyan-300 underline underline-offset-4 transition-colors"
               >
                 Live Leaderboard →
               </Link>
@@ -194,13 +195,13 @@ export default function LoginPage() {
           </div>
 
           {/* Right Auth Box (7 cols) */}
-          <div className="lg:col-span-7 bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-8 backdrop-blur-md shadow-2xl space-y-6">
+          <div className="lg:col-span-7 bg-[#101726]/90 border border-white/10 rounded-3xl p-6 sm:p-8 backdrop-blur-md shadow-2xl space-y-6">
             <div>
               <h2 className="text-xl font-bold text-white tracking-tight">
-                Select Your Role
+                Select Your Role Portal
               </h2>
               <p className="text-xs text-slate-400 mt-1">
-                Choose a role to instant-launch or enter your access identifier.
+                Choose your authorized persona to launch directly or customize your ID.
               </p>
             </div>
 
@@ -216,28 +217,28 @@ export default function LoginPage() {
                     onClick={() => handleRoleSelect(config.id)}
                     className={`p-4 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
                       isSelected
-                        ? 'bg-indigo-950/40 border-indigo-500 shadow-lg shadow-indigo-500/10'
-                        : 'bg-slate-950/70 border-slate-800 hover:border-slate-700 hover:bg-slate-950'
+                        ? 'bg-gradient-to-br from-pink-950/40 via-[#101726] to-purple-950/40 border-pink-500 shadow-lg shadow-pink-500/10'
+                        : 'bg-[#080c14]/70 border-white/5 hover:border-white/20 hover:bg-[#080c14]'
                     }`}
                   >
                     <div>
                       <div className="flex items-center justify-between mb-2">
-                        <div className={`p-2 rounded-xl ${isSelected ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-300'}`}>
+                        <div className={`p-2 rounded-xl ${isSelected ? 'bg-gradient-to-r from-pink-500 to-purple-600 text-white' : 'bg-white/5 text-slate-300'}`}>
                           <IconComponent className="w-4 h-4" />
                         </div>
-                        <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${
-                          isSelected ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/40' : 'bg-slate-800 text-slate-400'
+                        <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-md ${
+                          isSelected ? 'bg-pink-500/20 text-pink-300 border border-pink-500/40' : 'bg-white/5 text-slate-400'
                         }`}>
                           {config.badge}
                         </span>
                       </div>
 
                       <h3 className="font-bold text-white text-sm">{config.title}</h3>
-                      <p className="text-[11px] text-slate-400 mt-0.5">{config.subtitle}</p>
-                      <p className="text-[11px] text-slate-500 mt-2 line-clamp-2">{config.desc}</p>
+                      <p className="text-[11px] text-pink-300/80 mt-0.5">{config.subtitle}</p>
+                      <p className="text-[11px] text-slate-400 mt-2 line-clamp-2 leading-relaxed">{config.desc}</p>
                     </div>
 
-                    <div className="pt-3 mt-3 border-t border-slate-800/80 flex items-center justify-between">
+                    <div className="pt-3 mt-3 border-t border-white/5 flex items-center justify-between">
                       <span className="text-[10px] font-mono text-slate-400">ID: {config.defaultId}</span>
                       <button
                         type="button"
@@ -245,7 +246,7 @@ export default function LoginPage() {
                           e.stopPropagation();
                           handleQuickLogin(config.id, config.defaultId, config.target);
                         }}
-                        className="px-2.5 py-1 text-[11px] font-semibold bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition-colors flex items-center gap-1 shadow-sm"
+                        className="px-3 py-1 text-[11px] font-semibold bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white rounded-lg transition-all flex items-center gap-1 shadow-md shadow-pink-500/20"
                       >
                         <span>Launch</span>
                         <ArrowRight className="w-3 h-3" />
@@ -257,11 +258,11 @@ export default function LoginPage() {
             </div>
 
             {/* Custom Identifier Form */}
-            <form onSubmit={handleSubmit} className="pt-4 border-t border-slate-800 space-y-4">
+            <form onSubmit={handleSubmit} className="pt-4 border-t border-white/10 space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="text-xs font-mono text-slate-400 uppercase tracking-wider block mb-1.5">
-                    {selectedRole === 'admin' ? 'Admin Access Key' :
+                    {selectedRole === 'admin' ? 'Admin Access Code' :
                      selectedRole === 'judge' ? 'Judge Code (e.g. JDG-01)' :
                      selectedRole === 'coordinator' ? 'Coordinator Code (e.g. CRD-01)' :
                      'Team Code (e.g. IDEA-01)'}
@@ -271,20 +272,20 @@ export default function LoginPage() {
                     value={customIdentifier}
                     onChange={(e) => setCustomIdentifier(e.target.value)}
                     required
-                    className="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-xs font-mono text-white focus:outline-none focus:border-indigo-500"
+                    className="w-full bg-[#080c14] border border-white/10 rounded-xl px-3.5 py-2.5 text-xs font-mono text-white focus:outline-none focus:border-pink-500"
                   />
                 </div>
 
                 <div>
                   <label className="text-xs font-mono text-slate-400 uppercase tracking-wider block mb-1.5">
-                    Passcode / PIN (Optional for Demo)
+                    Passcode / Security PIN (Optional)
                   </label>
                   <input
                     type="password"
                     value={passcode}
                     onChange={(e) => setPasscode(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-indigo-500"
+                    className="w-full bg-[#080c14] border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-pink-500"
                   />
                 </div>
               </div>
@@ -292,7 +293,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-3 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white text-xs font-bold rounded-xl transition-all shadow-lg flex items-center justify-center gap-2"
+                className="w-full py-3 bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 hover:from-pink-500 hover:to-indigo-500 text-white text-xs font-bold rounded-xl transition-all shadow-lg shadow-pink-500/20 flex items-center justify-center gap-2"
               >
                 <span>{isLoading ? 'Verifying Session...' : `Enter ${selectedRole.toUpperCase()} Portal →`}</span>
               </button>
@@ -305,3 +306,4 @@ export default function LoginPage() {
     </div>
   );
 }
+
