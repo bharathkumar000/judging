@@ -49,7 +49,7 @@ module.exports = {
       fontFamily: {
         sans: ['Plus Jakarta Sans', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'Menlo', 'monospace'],
-        heading: ['Plus Jakarta Sans', 'Outfit', 'Inter', 'sans-serif'],
+        heading: ['Chakra Petch', 'Outfit', 'Plus Jakarta Sans', 'Inter', 'sans-serif'],
       },
       boxShadow: {
         'vice-pink': '0 0 20px rgba(255, 42, 133, 0.35)',

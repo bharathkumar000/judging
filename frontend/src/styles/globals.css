@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -27,7 +27,7 @@
   --text-dim: #64748b;
 
   --font-sans: 'Plus Jakarta Sans', sans-serif;
-  --font-heading: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  --font-heading: 'Chakra Petch', 'Outfit', 'Plus Jakarta Sans', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
 
