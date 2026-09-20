@@ -1,75 +1,94 @@
 # Features by Portal
 
-## 🏛️ ADMIN PORTAL (`/admin/dashboard`)
+## 🏛️ ADMIN PORTAL (`/admin/*`)
+**Clearance: Tier 3 (Root Command)** — Full CRUD over everything
 
-| Feature | Status |
-|---------|--------|
-| Telemetry Dashboard | ✅ 4 stat cards (teams, judges, evaluations, completion %) |
-| Master Evaluation Matrix | ✅ Real-time cross-tab: teams × judges with scores |
-| Live Visibility Controls | ✅ Toggle: live scores, leaderboard, results lock |
-| Scoring Formula Display | ✅ Shows current method (average/weighted/sum) |
-| CSV Export | ✅ Master scorecard with per-judge breakdown |
-| Rubric Builder Link | ✅ Navigates to `/admin/rubrics` (redirect stub) |
-| Team Click-through | ✅ Shows "view" link but no modal |
-
-### Admin Stub Pages (redirect to dashboard)
-- `/admin/teams` → redirect
-- `/admin/judges` → redirect
-- `/admin/assignments` → redirect
-- `/admin/rubrics` → redirect
-- `/admin/evaluations` → redirect
-- `/admin/submissions` → redirect
-- `/admin/settings` → redirect
-- `/admin/announcements` → redirect
-- `/admin/audit` → redirect
-- `/admin/schedule` → redirect
+| Page | Features | Authorities |
+|------|----------|-------------|
+| `/admin/dashboard` | ✅ Telemetry Dashboard (4 stat cards: teams, judges, evaluations, completion %), Master Evaluation Matrix (real-time cross-tab: teams × judges with scores), Live Visibility Controls (toggle: live scores, leaderboard, results lock), Scoring Formula Display (shows current method: average/weighted/sum), CSV Export (master scorecard with per-judge breakdown), Rubric Builder Link (navigates to `/admin/rubrics`), Team Click-through (shows "view" link, no modal) | View all teams/judges/evaluations; toggle `SHOW_LIVE_SCORE`, `SHOW_RUBRIC_BREAKDOWN`, `SHOW_JUDGE_IDENTITY`, `SHOW_RANK`, `SHOW_LEADERBOARD`, `ANONYMOUS_JUDGING`, `SUBMISSIONS_LOCKED`, `RESULTS_LOCKED` |
+| `/admin/teams` | ↪️ Redirect stub (to dashboard) | **Planned:** Full CRUD — create/edit/disqualify/activate teams, change track assignments |
+| `/admin/judges` | ↪️ Redirect stub | **Planned:** Add/remove judges, monitor workload pacing, toggle review privileges |
+| `/admin/assignments` | ↪️ Redirect stub | **Planned:** Drag-drop judge↔team matrix, 1-click batch auto-distribution |
+| `/admin/rubrics` | ↪️ Redirect stub | **Planned:** Visual criteria editor — add/remove/reorder, weights, max marks, calculation method (Simple Average, Weighted Average, Sum) |
+| `/admin/evaluations` | ↪️ Redirect stub | **Planned:** Cross-judge score matrix, outlier divergence warnings (Δ > 12 pts) |
+| `/admin/submissions` | ↪️ Redirect stub | **Planned:** Inspect code repositories, lock/unlock individual squad submissions |
+| `/admin/settings` | ↪️ Redirect stub | **Planned:** Granular visibility toggles, event config persistence to Supabase/localStorage |
+| `/admin/announcements` | ↪️ Redirect stub | **Planned:** Create/priority/schedule real-time broadcasts to all connected clients |
+| `/admin/audit` | ↪️ Redirect stub | **Planned:** Immutable chronological log of administrative and scoring actions |
+| `/admin/schedule` | ↪️ Redirect stub | **Planned:** CRUD phases, drag-reorder, date/time picker |
 
 ---
 
-## ⚖️ JUDGE PORTAL
+## ⚖️ JUDGE PORTAL (`/judge/*`)
+**Clearance: Tier 2 (Syndicate)** — Assigned teams only
 
-| Page | Features |
-|------|----------|
-| `/judge/dashboard` | ✅ Assigned teams grid, filter tabs (All/Pending/Completed/Draft), search, status badges, project title preview, assigned score display, "Score This Team"/"Revise Scorecard" actions |
-| `/judge/evaluate/[id]` | ✅ Full evaluation workspace: left panel (team dossier: problem, solution, tech stack, links), right panel (criteria sliders 0-25, number inputs, quick presets, criterion comments, overall feedback textarea, live total, save draft / submit final) |
-| `/judge/history` | ❌ Redirect stub |
+| Page | Features | Authorities |
+|------|----------|-------------|
+| `/judge/dashboard` | ✅ Assigned teams grid, filter tabs (All/Pending/Completed/Draft), search, status badges, project title preview, assigned score display, "Score This Team"/"Revise Scorecard" actions | View **only assigned teams**; filter by status; see assigned score |
+| `/judge/evaluate/[id]` | ✅ Full evaluation workspace: left panel (team dossier: problem, solution, tech stack, links to GitHub, demo, pitch deck), right panel (criteria sliders 0-25, number inputs, quick presets, criterion comments, overall feedback textarea, live total, save draft / submit final) | Edit scores **only for assigned team**; save drafts; lock & submit final; cannot see other judges' scores if `ANONYMOUS_JUDGING=true` |
+| `/judge/history` | ❌ Redirect stub | **Planned:** View past scoring records with optional score revision before judging deadline |
 
 ---
 
-## 👥 TEAM PORTAL
+## 👥 TEAM PORTAL (`/team/*`)
+**Clearance: Tier 1 (Operative)** — Own team only
 
-| Page | Features |
-|------|----------|
-| `/team/dashboard` | ✅ Rank & aggregate score cards, project dossier (title, problem, solution, links), judge feedback list with criteria breakdown (if enabled) |
-| `/team/score` | ❌ Redirect to dashboard |
-| `/team/profile` | ❌ Redirect to dashboard |
-| `/team/submission` | ❌ Redirect to dashboard |
-| `/team/notifications` | ❌ Redirect to dashboard |
+| Page | Features | Authorities |
+|------|----------|-------------|
+| `/team/dashboard` | ✅ Rank & aggregate score cards, project dossier (title, problem, solution, links), judge feedback list with criteria breakdown (if enabled) | View **own** rank, score, feedback; see rubric breakdown only if `SHOW_RUBRIC_BREAKDOWN=true` |
+| `/team/score` | ❌ Redirect to dashboard | **Planned:** Live score distribution across all rubric criteria with animated updates, qualitative judge feedback |
+| `/team/profile` | ❌ Redirect to dashboard | **Planned:** Edit team name, members, avatar |
+| `/team/submission` | ❌ Redirect to dashboard | **Planned:** Rich editor for problem/solution, file uploads, link validation, GitHub/demo/deck URLs |
+| `/team/notifications` | ❌ Redirect to dashboard | **Planned:** Real-time alerts (eval received, announcements) with urgency levels (INFO, WARNING, URGENT) |
 
 ---
 
 ## 🎯 COORDINATOR PORTAL (`/coordinator/dashboard`)
+**Clearance: Tier 3 (Root Command)** — Event operations
 
-| Feature | Status |
-|---------|--------|
-| Pitch Timer | ✅ 5-min countdown, start/pause/reset, 3-min Q&A quick-set |
-| Room Filter | ✅ Dropdown by room |
-| Search | ✅ By team name/code |
-| Presentation Queue Table | ✅ Slot, room, team/members, track, check-in toggle, pitch status (Pending/Presenting/Done), judge scorecards per judge |
-| Real-time toggles | ✅ Check-in, pitch status, live judge completion badges |
+| Feature | Status | Authorities |
+|---------|--------|-------------|
+| Pitch Timer | ✅ 5-min countdown, start/pause/reset, 3-min Q&A quick-set | Control presentation timing |
+| Room Filter | ✅ Dropdown by room | Filter queue by room |
+| Search | ✅ By team name/code | Find teams in queue |
+| Presentation Queue Table | ✅ Slot, room, team/members, track, check-in toggle, pitch status (Pending/Presenting/Done), judge scorecards per judge | Toggle check-in, pitch status; see judge completion badges |
+| Real-time toggles | ✅ Check-in, pitch status, live judge completion badges | Manage live presentation flow |
 
 ---
 
 ## 🌐 PUBLIC / SHARED PAGES
+**Clearance: None (Public)** — Visible to all
 
-| Page | Features |
-|------|----------|
-| `/` (Landing) | ✅ Role launchpad (4 quick-login cards), event telemetry, rubric preview, pitch schedule preview |
-| `/login` | ✅ 4 role quick-login, custom identifier form, passcode field |
-| `/leaderboard` | ✅ Podium (top 3), search, track filter, expandable rubric breakdown per team, masked mode when disabled |
-| `/missions` | ✅ Track cards with team counts, descriptions, link to leaderboard filtered by track |
-| `/schedule` | ✅ Timeline phases with status (active/completed/upcoming), time slots |
-| `/rules` | ✅ Active rubric criteria grid (max points + descriptions), pitch rules (5min/3min/100% originality) |
+| Page | Features | Visibility Controls |
+|------|----------|---------------------|
+| `/` (Landing) | ✅ Role launchpad (4 quick-login cards), event telemetry, rubric preview, pitch schedule preview | Always public |
+| `/login` | ✅ 4 role quick-login, custom identifier form, passcode field | Always public |
+| `/leaderboard` | ✅ Podium (top 3), search, track filter, expandable rubric breakdown per team, masked mode when disabled | Masked if `SHOW_LEADERBOARD=false` or `SHOW_RANK=false` |
+| `/missions` | ✅ Track cards with team counts, descriptions, link to leaderboard filtered by track | Always public |
+| `/schedule` | ✅ Timeline phases with status (active/completed/upcoming), time slots | Always public |
+| `/rules` | ✅ Active rubric criteria grid (max points + descriptions), pitch rules (5min/3min/100% originality) | Shows criteria only if `SHOW_RUBRIC_BREAKDOWN=true` |
+
+---
+
+## 🔐 RBAC Summary Matrix
+
+| Action | Admin (Tier 3) | Judge (Tier 2) | Team (Tier 1) | Public |
+|--------|---------------|----------------|---------------|--------|
+| View all teams | ✅ | ❌ (assigned only) | ❌ (own only) | ❌ |
+| View all judges | ✅ | ❌ | ❌ | ❌ |
+| Edit team info | ✅ | ❌ | ✅ (own, via profile) | ❌ |
+| Edit judge info | ✅ | ❌ | ❌ | ❌ |
+| Assign judges ↔ teams | ✅ | ❌ | ❌ | ❌ |
+| Edit rubric | ✅ | ❌ | ❌ | ❌ (view only if enabled) |
+| Score teams | ❌ | ✅ (assigned only) | ❌ | ❌ |
+| View other judges' scores | ✅ | ❌ (if anonymous) | ❌ | ❌ |
+| Submit project | ❌ | ❌ | ✅ (own) | ❌ |
+| View own feedback | ❌ | ❌ | ✅ (if enabled) | ❌ |
+| Toggle visibility settings | ✅ | ❌ | ❌ | ❌ |
+| Broadcast announcements | ✅ | ❌ | ❌ | ❌ |
+| Manage presentation queue | ✅ | ❌ | ❌ | ❌ |
+| View leaderboard | ✅ | ✅ | ✅ | ✅ (masked) |
+| View rubric breakdown | ✅ | ✅ | ✅ (if enabled) | ✅ (if enabled) |
 
 ---
 
