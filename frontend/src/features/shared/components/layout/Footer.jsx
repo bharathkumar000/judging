@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { RotateCcw, ShieldCheck, CheckCircle2 } from 'lucide-react';
-import { useDataStore } from '@/lib/dataStore';
+import { useDataStore } from '@/features/shared/services/storage/dataStore';
 
 export default function Footer() {
   const { resetToDefaultData, eventSettings } = useDataStore();

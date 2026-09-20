@@ -3,9 +3,8 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useDataStore } from '@/lib/dataStore';
-import { Navbar } from '@/components/layout/Navbar';
-import { Footer } from '@/components/layout/Footer';
+import { useDataStore } from '@/features/shared/services/storage/dataStore';
+import { Navbar, Footer } from '@/features/shared/components';
 import { 
   ShieldCheck, 
   Award, 
@@ -178,12 +177,12 @@ export default function LoginPage() {
 
             {/* Public Links */}
             <div className="flex items-center gap-3 text-xs">
-              <Link
-                href="/teams"
-                className="text-slate-400 hover:text-white underline underline-offset-4 transition-colors"
-              >
-                Browse All Teams Directory →
-              </Link>
+<Link
+  href="/leaderboard"
+  className="text-slate-400 hover:text-white underline underline-offset-4 transition-colors"
+>
+  Browse All Teams →
+</Link>
               <span className="text-slate-600">&bull;</span>
               <Link
                 href="/leaderboard"

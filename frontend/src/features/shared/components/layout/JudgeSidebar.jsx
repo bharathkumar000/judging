@@ -13,7 +13,7 @@ import {
   Clock,
   Layers
 } from 'lucide-react';
-import { useDataStore } from '@/lib/dataStore';
+import { useDataStore } from '@/features/shared/services/storage/dataStore';
 
 export default function JudgeSidebar() {
   const pathname = usePathname();

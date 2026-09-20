@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { useDataStore } from '@/lib/dataStore';
+import { useDataStore } from '@/features/shared/services/storage/dataStore';
 import { Shield, Terminal, Clock, Bell, Radio, User, Activity, MapPin } from 'lucide-react';
 
 export default function TerminalHeader({ title, subtitle, badgeText, badgeColor = 'pink', actions }) {

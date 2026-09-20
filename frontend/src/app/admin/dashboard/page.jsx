@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { useDataStore } from '@/features/shared/services/storage/dataStore';
 import { computeAdminTelemetry, computeLeaderboard } from '@/features/shared/services/scoring/scoringEngine';
@@ -21,7 +21,7 @@ import {
   Sparkles,
   ExternalLink
 } from 'lucide-react';
-import TeamDossierModal from '@/components/ui/TeamDossierModal';
+
 
 export default function AdminDashboard() {
   const { 
@@ -40,7 +40,6 @@ export default function AdminDashboard() {
   const activeRubric = rubrics.find(r => r.is_active) || rubrics[0];
   const rankedLeaderboard = computeLeaderboard(teams, evaluations, activeRubric?.criteria, eventSettings.scoring_method);
   const activeJudges = judges.filter(j => j.is_active);
-  const [activeModalTeam, setActiveModalTeam] = useState(null);
 
   // Export Master Scorecard CSV
   const handleExportCSV = () => {
@@ -245,7 +244,6 @@ export default function AdminDashboard() {
                 return (
                   <tr 
                     key={team.id} 
-                    onClick={() => setActiveModalTeam(team)}
                     className="hover:bg-indigo-950/30 transition-colors cursor-pointer group"
                     title="Click to view complete team dossier, problem statement, members, and marks"
                   >
@@ -311,13 +309,6 @@ export default function AdminDashboard() {
           </table>
         </div>
       </div>
-
-      {/* Complete Team Dossier Modal */}
-      <TeamDossierModal
-        team={activeModalTeam}
-        isOpen={!!activeModalTeam}
-        onClose={() => setActiveModalTeam(null)}
-      />
     </div>
   );
 }

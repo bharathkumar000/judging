@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useDataStore } from '@/lib/dataStore';
+import { useDataStore } from '@/features/shared/services/storage/dataStore';
 import { AlertTriangle, CheckCircle2, Info, X } from 'lucide-react';
 
 export default function Toast() {

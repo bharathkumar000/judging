@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { useDataStore } from '@/lib/dataStore';
+import { useDataStore } from '@/features/shared/services/storage/dataStore';
 import { 
   Github, 
   ExternalLink, 

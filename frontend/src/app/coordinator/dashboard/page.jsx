@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useDataStore } from '@/lib/dataStore';
+import { useDataStore } from '@/features/shared/services/storage/dataStore';
 import { 
   ClipboardCheck, 
   Clock, 
@@ -17,7 +17,6 @@ import {
   X,
   Info
 } from 'lucide-react';
-import TeamDossierModal from '@/components/ui/TeamDossierModal';
 
 export default function CoordinatorDashboard() {
   const [activeModalTeam, setActiveModalTeam] = useState(null);
@@ -297,13 +296,6 @@ export default function CoordinatorDashboard() {
           </table>
         </div>
       </div>
-
-      {/* Complete Team Dossier Modal */}
-      <TeamDossierModal
-        team={activeModalTeam}
-        isOpen={!!activeModalTeam}
-        onClose={() => setActiveModalTeam(null)}
-      />
     </div>
   );
 }

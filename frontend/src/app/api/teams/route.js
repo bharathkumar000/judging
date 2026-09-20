@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { INITIAL_TEAMS } from '@/lib/mockData';
+import { INITIAL_TEAMS } from '@/features/shared/constants/mockData';
 
 export async function GET() {
   return NextResponse.json({

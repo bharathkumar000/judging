@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { INITIAL_EVENT_SETTINGS } from '@/lib/mockData';
+import { INITIAL_EVENT_SETTINGS } from '@/features/shared/constants/mockData';
 
 export async function GET() {
   return NextResponse.json({

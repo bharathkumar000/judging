@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { calculateEvaluationScore, aggregateTeamScores } from '@/lib/scoring';
+import { calculateEvaluationScore, aggregateTeamScores } from '@/features/shared/services/scoring/scoringEngine';
 
 export async function POST(request) {
   try {

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useDataStore } from '@/lib/dataStore';
+import { useDataStore } from '@/features/shared/services/storage/dataStore';
 import { Clock, Calendar, CheckCircle2, Award } from 'lucide-react';
 
 export default function SchedulePage() {

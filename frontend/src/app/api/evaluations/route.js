@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { INITIAL_EVALUATIONS } from '@/lib/mockData';
+import { INITIAL_EVALUATIONS } from '@/features/shared/constants/mockData';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);

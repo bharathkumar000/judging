@@ -16,10 +16,8 @@ import {
   ChevronRight,
   Info
 } from 'lucide-react';
-import TeamDossierModal from '@/components/ui/TeamDossierModal';
 
 export default function JudgeDashboard() {
-  const [activeModalTeam, setActiveModalTeam] = useState(null);
   const { 
     currentUser, 
     judges, 
@@ -197,15 +195,6 @@ export default function JudgeDashboard() {
               </div>
 
               <div className="pt-5 mt-5 border-t border-white/5 space-y-2">
-                <button
-                  type="button"
-                  onClick={() => setActiveModalTeam(team)}
-                  className="w-full py-2 text-xs font-semibold rounded-md bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center justify-center gap-1.5 transition-colors border border-slate-700"
-                >
-                  <Info className="w-3.5 h-3.5 text-indigo-400" />
-                  <span>View Full Team Dossier</span>
-                </button>
-
                 <Link
                   href={`/judge/evaluate/${team.id}`}
                   className={`w-full py-2.5 text-xs font-semibold rounded-md flex items-center justify-center gap-2 transition-all ${
@@ -223,13 +212,6 @@ export default function JudgeDashboard() {
           ))
         )}
       </div>
-
-      {/* Complete Team Dossier Modal */}
-      <TeamDossierModal
-        team={activeModalTeam}
-        isOpen={!!activeModalTeam}
-        onClose={() => setActiveModalTeam(null)}
-      />
     </div>
   );
 }

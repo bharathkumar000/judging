@@ -1,5 +1,5 @@
 import '../styles/globals.css';
-import { DataStoreProvider } from '@/lib/dataStore';
+import { DataStoreProvider } from '@/features/shared/services/storage/dataStore';
 
 export const metadata = {
   title: 'IdeaJudge // Digitalized Ideathon Judging Suite',

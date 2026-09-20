@@ -14,7 +14,6 @@ import {
   CheckCircle2,
   Info
 } from 'lucide-react';
-import TeamDossierModal from '@/components/ui/TeamDossierModal';
 
 export default function LeaderboardPage() {
   const { teams, evaluations, rubrics, missions, eventSettings } = useDataStore();
@@ -22,7 +21,6 @@ export default function LeaderboardPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedMission, setSelectedMission] = useState('ALL');
   const [expandedTeamId, setExpandedTeamId] = useState(null);
-  const [activeModalTeam, setActiveModalTeam] = useState(null);
 
   const activeRubric = rubrics.find(r => r.is_active) || rubrics[0];
   const allRanked = computeLeaderboard(teams, evaluations, activeRubric?.criteria, eventSettings.scoring_method);
@@ -222,14 +220,7 @@ export default function LeaderboardPage() {
                         </td>
                         {/* Team Name */}
                         <td className="p-4">
-                          <div 
-                            onClick={() => {
-                              const fullTeam = teams.find(t => t.id === team.id) || team;
-                              setActiveModalTeam(fullTeam);
-                            }}
-                            className="font-bold text-white hover:text-indigo-300 cursor-pointer flex items-center gap-1.5 transition-colors"
-                            title="Click to view full team dossier, problem statement, members, and marks"
-                          >
+                          <div className="font-bold text-white hover:text-indigo-300 cursor-pointer flex items-center gap-1.5 transition-colors">
                             <span>{team.name}</span>
                             <Info className="w-3.5 h-3.5 text-indigo-400" />
                           </div>
@@ -317,12 +308,6 @@ export default function LeaderboardPage() {
         </div>
       </div>
 
-      {/* Complete Team Dossier Modal */}
-      <TeamDossierModal
-        team={activeModalTeam}
-        isOpen={!!activeModalTeam}
-        onClose={() => setActiveModalTeam(null)}
-      />
-    </div>
+      </div>
   );
 }

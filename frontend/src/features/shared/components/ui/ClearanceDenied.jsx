@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { ShieldAlert, Terminal, ArrowRight, Lock } from 'lucide-react';
-import { useDataStore } from '@/lib/dataStore';
+import { useDataStore } from '@/features/shared/services/storage/dataStore';
 
 export default function ClearanceDenied({ requiredRole = 'ADMIN' }) {
   const { currentUser, logout } = useDataStore();

@@ -2,9 +2,8 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { useDataStore } from '@/lib/dataStore';
-import { Navbar } from '@/components/layout/Navbar';
-import { Footer } from '@/components/layout/Footer';
+import { useDataStore } from '@/features/shared/services/storage/dataStore';
+import { Navbar, Footer } from '@/features/shared/components';
 
 export default function GuidelinesPage() {
   const { rubrics } = useDataStore();
