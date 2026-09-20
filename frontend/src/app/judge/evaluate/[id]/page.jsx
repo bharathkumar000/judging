@@ -20,6 +20,8 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 
+import Navbar from '@/components/layout/Navbar';
+
 export default function JudgeEvaluatePage() {
   const params = useParams();
   const router = useRouter();
@@ -81,10 +83,13 @@ export default function JudgeEvaluatePage() {
 
   if (!team) {
     return (
-      <div className="p-12 text-center text-slate-400">
-        Team not found.
-        <div className="mt-4">
-          <Link href="/judge/dashboard" className="btn-primary text-xs">Return to Dashboard</Link>
+      <div className="min-h-screen flex flex-col bg-[#080c14] text-slate-100">
+        <Navbar />
+        <div className="p-12 text-center text-slate-400">
+          Team not found in registry.
+          <div className="mt-4">
+            <Link href="/judge/dashboard" className="btn-primary text-xs">Return to Dashboard</Link>
+          </div>
         </div>
       </div>
     );
@@ -126,55 +131,63 @@ export default function JudgeEvaluatePage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-      {/* Navigation & Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/5 pb-4">
-        <div className="flex items-center gap-3">
-          <Link
-            href="/judge/dashboard"
-            className="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-white/10 text-slate-400 hover:text-white transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-          </Link>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="badge-indigo">{team.team_code}</span>
-              <span className="text-xs text-slate-400 font-mono">{team.room} · {team.pitch_slot}</span>
-            </div>
-            <h1 className="text-2xl font-bold text-white tracking-tight mt-0.5">
-              {team.name}
-            </h1>
-          </div>
-        </div>
+    <div className="min-h-screen flex flex-col bg-[#080c14] text-slate-100 selection:bg-pink-500 selection:text-white">
+      <Navbar />
 
-        {/* Live Score Counter Pill */}
-        <div className="bg-slate-900 border border-indigo-500/30 p-3 rounded-xl flex items-center gap-4 self-start sm:self-auto">
-          <div>
-            <div className="text-[10px] font-mono text-slate-400 font-bold uppercase">CURRENT SCORE</div>
-            <div className="text-2xl font-extrabold font-mono text-indigo-400">
-              {calculatedTotal.toFixed(1)} <span className="text-xs text-slate-400">/ 100</span>
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+        {/* Navigation & Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
+          <div className="flex items-center gap-3">
+            <Link
+              href="/judge/dashboard"
+              className="p-2.5 rounded-xl bg-[#101726] hover:bg-[#1a243b] border border-white/10 text-slate-400 hover:text-white transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+            </Link>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="px-2.5 py-0.5 rounded-md text-[11px] font-mono font-bold bg-pink-500/10 text-pink-400 border border-pink-500/30">
+                  {team.team_code}
+                </span>
+                <span className="text-xs text-slate-400 font-mono">{team.room} · {team.pitch_slot}</span>
+              </div>
+              <h1 className="text-2xl font-bold text-white tracking-tight mt-0.5">
+                {team.name}
+              </h1>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => handleSave(true)}
-              disabled={isSubmitting}
-              className="btn-secondary text-xs py-2 px-3 flex items-center gap-1.5"
-            >
-              <Save className="w-3.5 h-3.5 text-slate-400" />
-              <span>Save Draft</span>
-            </button>
-            <button
-              onClick={() => handleSave(false)}
-              disabled={isSubmitting}
-              className="btn-primary text-xs py-2 px-4 flex items-center gap-1.5"
-            >
-              <CheckCircle2 className="w-3.5 h-3.5" />
-              <span>Submit Final</span>
-            </button>
+
+          {/* Live Score Counter Pill */}
+          <div className="bg-[#101726] border border-pink-500/30 p-3 rounded-2xl flex items-center gap-4 self-start sm:self-auto shadow-lg shadow-pink-500/5">
+            <div>
+              <div className="text-[10px] font-mono text-pink-400 font-bold uppercase tracking-wider">LIVE TOTAL SCORE</div>
+              <div className="text-2xl font-extrabold font-mono text-white">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-300 to-cyan-400">
+                  {calculatedTotal.toFixed(1)}
+                </span>
+                <span className="text-xs text-slate-400 font-normal"> / 100</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => handleSave(true)}
+                disabled={isSubmitting}
+                className="btn-secondary text-xs py-2 px-3 flex items-center gap-1.5"
+              >
+                <Save className="w-3.5 h-3.5 text-slate-400" />
+                <span>Save Draft</span>
+              </button>
+              <button
+                onClick={() => handleSave(false)}
+                disabled={isSubmitting}
+                className="btn-primary text-xs py-2 px-4 flex items-center gap-1.5"
+              >
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                <span>Submit Final</span>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Column: Project Submission Dossier */}
@@ -427,6 +440,9 @@ export default function JudgeEvaluatePage() {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </main>
+  </div>
+);
 }
+
+
