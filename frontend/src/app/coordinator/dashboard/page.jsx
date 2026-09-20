@@ -84,7 +84,16 @@ export default function CoordinatorDashboard() {
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         
         {/* GTA 6 Vice City Sunset Hero Banner */}
-        <div className="relative rounded-3xl overflow-hidden border border-white/[0.1] shadow-2xl bg-gradient-to-r from-[#0c1220] via-[#1a122e] to-[#2a133d]">
+        <div className="relative rounded-3xl overflow-hidden border border-cyan-500/20 shadow-2xl bg-gradient-to-r from-[#0c1220] via-[#1a122e] to-[#2a133d]">
+          {/* Subtle character background */}
+          <div className="absolute right-0 top-0 bottom-0 w-full md:w-1/2 overflow-hidden pointer-events-none opacity-25 md:opacity-40">
+            <img 
+              src="/assets/roles/coordinator.png" 
+              alt="Club Coordinator" 
+              className="w-full h-full object-cover object-top"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0c1220] via-[#1a122e]/80 to-transparent" />
+          </div>
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,42,133,0.25),transparent_50%),radial-gradient(ellipse_at_bottom_left,rgba(6,182,212,0.2),transparent_50%)]" />
           
           <div className="relative p-6 sm:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6 z-10">

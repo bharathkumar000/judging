@@ -51,13 +51,14 @@ export default function LandingLaunchpad() {
   const roles = [
     {
       id: 'admin',
-      title: 'Admin Control Center',
+      title: 'Admin Command',
       subtitle: 'Event Organizer & Jury Lead ("Me")',
       description: 'Master scoring matrix cross-tabulation across all judges, dynamic rubric weights builder, lock & visibility toggles, and instant CSV export.',
-      badge: 'ROOT LEAD',
+      badge: 'SUPERUSER',
       badgeClass: 'badge-pink',
       icon: ShieldCheck,
       iconColor: 'text-[#ff2a85]',
+      image: '/assets/roles/admin.png',
       actionText: 'Launch Admin Control',
       actionUrl: '/admin/dashboard',
       loginRole: 'admin',
@@ -69,10 +70,11 @@ export default function LandingLaunchpad() {
       subtitle: 'Technical Jury & Evaluators',
       description: 'Review assigned team dossiers, score on interactive 100-point rubric sliders with guidelines, calculate live marks, and write constructive remarks.',
       badge: 'EVALUATOR',
-      badgeClass: 'badge-emerald',
+      badgeClass: 'badge-purple',
       icon: Award,
-      iconColor: 'text-emerald-400',
-      actionText: 'Launch Judge Portal',
+      iconColor: 'text-purple-400',
+      image: '/assets/roles/judge.png',
+      actionText: 'Launch Judge Chamber',
       actionUrl: '/judge/dashboard',
       loginRole: 'judge',
       loginIdentifier: 'JDG-01'
@@ -86,6 +88,7 @@ export default function LandingLaunchpad() {
       badgeClass: 'badge-cyan',
       icon: ClipboardCheck,
       iconColor: 'text-cyan-400',
+      image: '/assets/roles/coordinator.png',
       actionText: 'Launch Coordinator Hub',
       actionUrl: '/coordinator/dashboard',
       loginRole: 'coordinator',
@@ -100,6 +103,7 @@ export default function LandingLaunchpad() {
       badgeClass: 'badge-amber',
       icon: Users,
       iconColor: 'text-amber-400',
+      image: '/assets/roles/teamlead.png',
       actionText: 'Launch Team Portal',
       actionUrl: '/team/dashboard',
       loginRole: 'team',
@@ -210,17 +214,26 @@ export default function LandingLaunchpad() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {roles.map((role) => {
               const IconComp = role.icon;
               return (
                 <div
                   key={role.id}
-                  className="clean-card p-6 bg-[#101726]/90 border border-white/[0.08] hover:border-[#ff2a85]/40 rounded-3xl flex flex-col justify-between transition-all duration-200 group shadow-xl"
+                  className="clean-card bg-[#101726]/90 border border-white/[0.08] hover:border-[#ff2a85]/50 rounded-3xl overflow-hidden flex flex-col justify-between transition-all duration-200 group shadow-2xl hover:shadow-[#ff2a85]/10"
                 >
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <div className="w-10 h-10 rounded-2xl bg-slate-900 border border-white/10 flex items-center justify-center">
+                  {/* Visual Header with Character Image Artwork */}
+                  <div className="relative h-44 w-full overflow-hidden bg-slate-950">
+                    <img 
+                      src={role.image} 
+                      alt={role.title}
+                      className="w-full h-full object-cover object-top opacity-60 group-hover:opacity-85 group-hover:scale-105 transition-all duration-500" 
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#101726] via-[#101726]/60 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#101726]/80 via-transparent to-transparent" />
+
+                    <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
+                      <div className="w-10 h-10 rounded-2xl bg-slate-900/90 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg">
                         <IconComp className={`w-5 h-5 ${role.iconColor}`} />
                       </div>
                       <span className={role.badgeClass}>
@@ -228,29 +241,31 @@ export default function LandingLaunchpad() {
                       </span>
                     </div>
 
-                    <div>
-                      <h3 className="text-lg font-bold text-white group-hover:text-pink-300 transition-colors">
+                    <div className="absolute bottom-3 left-5 right-5">
+                      <h3 className="text-xl font-extrabold text-white group-hover:text-pink-300 transition-colors tracking-tight">
                         {role.title}
                       </h3>
-                      <p className="text-xs font-medium text-slate-400 mt-0.5">
+                      <p className="text-xs font-semibold text-pink-300/80 mt-0.5">
                         {role.subtitle}
                       </p>
                     </div>
-
-                    <p className="text-xs text-slate-300 leading-relaxed bg-[#080c14]/70 p-3.5 rounded-2xl border border-white/5">
-                      {role.description}
-                    </p>
                   </div>
 
-                  <div className="pt-5 mt-4 border-t border-white/5">
-                    <button
-                      type="button"
-                      onClick={() => handleLaunchRole(role.loginRole, role.loginIdentifier, role.actionUrl)}
-                      className="w-full py-2.5 bg-slate-800 hover:bg-[#ff2a85] text-slate-200 hover:text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-2 border border-slate-700 hover:border-pink-500 shadow-sm"
-                    >
-                      <span>{role.actionText}</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
+                  <div className="p-6 pt-2 space-y-4 flex-1 flex flex-col justify-between">
+                    <p className="text-xs text-slate-300 leading-relaxed bg-[#080c14]/80 p-4 rounded-2xl border border-white/5">
+                      {role.description}
+                    </p>
+
+                    <div className="pt-2">
+                      <button
+                        type="button"
+                        onClick={() => handleLaunchRole(role.loginRole, role.loginIdentifier, role.actionUrl)}
+                        className="w-full py-3 bg-gradient-to-r from-slate-800 to-slate-900 hover:from-[#ff2a85] hover:to-purple-600 text-slate-200 hover:text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-2 border border-white/10 hover:border-pink-400 shadow-md group-hover:shadow-pink-500/20"
+                      >
+                        <span>{role.actionText}</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               );

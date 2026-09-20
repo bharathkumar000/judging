@@ -82,6 +82,7 @@ export default function LoginPage() {
       color: 'pink',
       target: '/admin/dashboard',
       defaultId: 'admin',
+      image: '/assets/roles/admin.png',
       desc: 'Master evaluation matrix, rubric weights, lock/release scores, CSV export.'
     },
     {
@@ -93,6 +94,7 @@ export default function LoginPage() {
       color: 'purple',
       target: '/judge/dashboard',
       defaultId: 'JDG-01',
+      image: '/assets/roles/judge.png',
       desc: 'Assigned team queue, 100-pt criterion sliders, instant score computation & notes.'
     },
     {
@@ -104,6 +106,7 @@ export default function LoginPage() {
       color: 'cyan',
       target: '/coordinator/dashboard',
       defaultId: 'CRD-01',
+      image: '/assets/roles/coordinator.png',
       desc: 'Room queue, 5m pitch + 3m Q&A interactive timer, attendance verification.'
     },
     {
@@ -115,6 +118,7 @@ export default function LoginPage() {
       color: 'gold',
       target: '/team/dashboard',
       defaultId: 'IDEA-01',
+      image: '/assets/roles/teamlead.png',
       desc: 'Project blueprint, presentation room & slot, live criterion marks scorecard.'
     }
   ];
@@ -217,15 +221,26 @@ export default function LoginPage() {
                     onClick={() => handleRoleSelect(config.id)}
                     className={`p-4 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
                       isSelected
-                        ? 'bg-gradient-to-br from-pink-950/40 via-[#101726] to-purple-950/40 border-pink-500 shadow-lg shadow-pink-500/10'
-                        : 'bg-[#080c14]/70 border-white/5 hover:border-white/20 hover:bg-[#080c14]'
+                        ? 'bg-gradient-to-br from-pink-950/40 via-[#101726] to-purple-950/40 border-pink-500 shadow-xl shadow-pink-500/20 ring-1 ring-pink-500/50'
+                        : 'bg-[#080c14]/80 border-white/10 hover:border-pink-500/30 hover:bg-[#080c14]'
                     }`}
                   >
                     <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <div className={`p-2 rounded-xl ${isSelected ? 'bg-gradient-to-r from-pink-500 to-purple-600 text-white' : 'bg-white/5 text-slate-300'}`}>
-                          <IconComponent className="w-4 h-4" />
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-3">
+                          <div className="w-11 h-11 rounded-xl overflow-hidden border border-white/20 shrink-0 bg-slate-900 shadow-md">
+                            <img 
+                              src={config.image} 
+                              alt={config.title}
+                              className="w-full h-full object-cover object-top" 
+                            />
+                          </div>
+                          <div>
+                            <h3 className="font-bold text-white text-sm">{config.title}</h3>
+                            <p className="text-[11px] text-pink-300 font-medium">{config.subtitle}</p>
+                          </div>
                         </div>
+
                         <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-md ${
                           isSelected ? 'bg-pink-500/20 text-pink-300 border border-pink-500/40' : 'bg-white/5 text-slate-400'
                         }`}>
@@ -233,9 +248,7 @@ export default function LoginPage() {
                         </span>
                       </div>
 
-                      <h3 className="font-bold text-white text-sm">{config.title}</h3>
-                      <p className="text-[11px] text-pink-300/80 mt-0.5">{config.subtitle}</p>
-                      <p className="text-[11px] text-slate-400 mt-2 line-clamp-2 leading-relaxed">{config.desc}</p>
+                      <p className="text-[11px] text-slate-400 leading-relaxed bg-[#101726]/60 p-2.5 rounded-xl border border-white/5">{config.desc}</p>
                     </div>
 
                     <div className="pt-3 mt-3 border-t border-white/5 flex items-center justify-between">
@@ -246,10 +259,9 @@ export default function LoginPage() {
                           e.stopPropagation();
                           handleQuickLogin(config.id, config.defaultId, config.target);
                         }}
-                        className="px-3 py-1 text-[11px] font-semibold bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white rounded-lg transition-all flex items-center gap-1 shadow-md shadow-pink-500/20"
+                        className="px-3 py-1.5 text-[11px] font-semibold bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white rounded-xl transition-all flex items-center gap-1 shadow-md shadow-pink-500/20 font-mono"
                       >
-                        <span>Launch</span>
-                        <ArrowRight className="w-3 h-3" />
+                        <span>Launch ⚡</span>
                       </button>
                     </div>
                   </div>
